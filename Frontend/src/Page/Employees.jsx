@@ -53,7 +53,7 @@ export default function Employees() {
     // console.log(id,"delete id")
     try {
       const resp = await fetch(`http://localhost:3000/employes/delete/${id}`, {
-        method: "POST",
+        method: "DELETE",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
       });

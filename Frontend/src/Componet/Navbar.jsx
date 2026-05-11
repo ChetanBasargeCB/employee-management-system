@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdAccountCircle } from "react-icons/md";
 import { Link } from 'react-router-dom';
+import { useAuth } from '../Contex/AuthContex';
 
 export default function Navbar() {
-  const user = localStorage.getItem("user") || "Guest";
-  const role = localStorage.getItem("role") || "Member";
+
+  // getting user info from context
+
+  const {user} = useAuth()
+
+  
+  useEffect(()=>{
+    user
+  })
+
 
   return (
     
@@ -28,16 +37,16 @@ export default function Navbar() {
           
           <div className="flex flex-col text-right">
             <span className="text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors">
-              {user}
+             {user.name || "Guest"}
             </span>
             <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter leading-none">
-              {role}
+               {user.role || "Member"}
             </span>
           </div>
 
           <div className="relative">
             <MdAccountCircle className="w-9 h-9 text-slate-300 group-hover:text-blue-500 transition-colors" />
-            <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></div>
+            <div className={`absolute bottom-0 right-0 w-2.5 h-2.5  ${user.name===""?"bg-red-500 ":"bg-green-500 "}  border-2 border-white rounded-full`}></div>
           </div>
         </Link>
       </div>

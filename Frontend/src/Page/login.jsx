@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { useAuth } from "../Contex/AuthContex";
 
 function Validation(email, password, role) {
   let errors = { email: "", password: "", role: "", status: true };
@@ -18,6 +19,9 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  //context for getting user data
+  const { login } = useAuth()
 
   const handelInput = (e) => {
     const { name, value } = e.target;
@@ -51,10 +55,8 @@ export default function Login() {
         return;
       }
 
-      localStorage.setItem("token", result.token);
-      localStorage.setItem("user", result.user.name);
-      localStorage.setItem("role", result.user.role);
-      localStorage.setItem("email", result.user.email);
+      // sending data to context
+      login(result)
 
       setLoading(false);
       toast.success("Login Successful");

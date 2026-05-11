@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LayoutDashboard, Users, UserCircle, Box, Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../Contex/AuthContex';
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +16,11 @@ export default function Sidebar() {
 
   // check if the current path matches the item link
   const isActive = (path) => location.pathname === path;
+
+  const {user} =useAuth()
+  useEffect(()=>{
+    user
+  })
 
   return (
     <>
@@ -78,11 +84,11 @@ export default function Sidebar() {
                 alt="Profile" 
                 className="w-10 h-10 rounded-full border border-gray-600 bg-slate-700"
               />
-              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-[#001529] rounded-full"></div>
+              <div className={`absolute bottom-0 right-0 w-2.5 h-2.5 ${user.name===""?"bg-red-500 ":"bg-green-500 "} border-2 border-[#001529] rounded-full`}></div>
             </div>
             <div className="overflow-hidden">
-              <h1 className="text-sm font-bold truncate">Chetan Basarge</h1>
-              <h3 className="text-[10px] text-gray-400 font-medium uppercase">HR Manager</h3>
+              <h1 className="text-sm font-bold truncate animate-pulse">{user.name ||"Login please"}</h1>
+              <h3 className="text-[10px] text-gray-400 font-medium uppercase">{user.role ||"" }</h3>
             </div>
           </div>
         </div>
