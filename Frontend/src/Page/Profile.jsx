@@ -1,16 +1,15 @@
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdAccountCircle, MdLogout, MdArrowBack, MdLogin } from "react-icons/md";
 import { toast } from "react-toastify";
+import { useAuth } from "../Contex/AuthContex";
 
 export default function Profile() {
   const navigate = useNavigate();
+
+  // sending logut info to context
+  const { logout ,user} = useAuth()
   
-  const [user, setUser] = useState({
-    name: localStorage.getItem("user") || "",
-    role: localStorage.getItem("role") || "",
-    email: localStorage.getItem("email") || ""
-  });
+ 
 
   const isLoggedIn = !!user.name;
 
@@ -27,9 +26,8 @@ export default function Profile() {
         headers: { "content-type": "application/json" },
       });
 
-      if (resp.status === 200) {
-        localStorage.clear();
-        setUser({ name: "", role: "", email: "" });
+      if (resp.ok) {
+        logout()
         toast.success("Logout Successful");
       }
     } catch (error) {

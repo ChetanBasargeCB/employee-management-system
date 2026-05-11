@@ -5,8 +5,8 @@ import { addEmployees, deleteEmployee, editEmployee, getAllData, getSinglemploye
 const EmployeRouter = express.Router()
 
 EmployeRouter.post("/add",isAdmin,addEmployees)  
-EmployeRouter.delete("/delete/:id",deleteEmployee)
-EmployeRouter.put ("/update/:id",editEmployee)
+EmployeRouter.delete("/delete/:id", isAdmin,deleteEmployee)
+EmployeRouter.put ("/update/:id",isAdmin,editEmployee)
 EmployeRouter.get("/all",isAdmin,getAllData)
 EmployeRouter.get("/single/:id",getSinglemployee)
 
