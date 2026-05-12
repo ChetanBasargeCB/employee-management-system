@@ -137,7 +137,7 @@ export default function Employees() {
                   key={emp._id}
                   className="hover:bg-gray-50 transition-colors text-sm"
                 >
-                  <td className="py-4 px-4 font-bold text-gray-900">
+                  <td title="View Employee Details" onClick={()=>navigate(`/employee_detail/${emp._id}`)} className="py-4 px-4 cursor-pointer hover:text-blue-600 transition-colors font-bold text-gray-900">
                     {emp.name}
                   </td>
                   <td className="py-4 px-4 text-gray-500">{emp.email}</td>

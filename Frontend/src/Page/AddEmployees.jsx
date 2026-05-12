@@ -161,7 +161,7 @@ export default function AddEmployees() {
         setData(result);
       }
     } catch (error) {
-      console.log(error, "single empoyee getting error");
+      console.log(error, "single employee getting error");
     }
   };
 
