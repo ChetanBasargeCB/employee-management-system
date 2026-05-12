@@ -14,7 +14,7 @@ const validateForm = (data) => {
     status: "",
   };
   let isOk = true;
-  if (!data.name) {
+  if (!data.name || data.name.length<3) {
     errors.name = "Full name is required";
     isOk = false;
   }

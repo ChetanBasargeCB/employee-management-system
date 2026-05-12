@@ -24,10 +24,21 @@ export const addEmployees = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-
 export const getAllData = async (req, res) => {
   try {
-    const user = await Employe.find(
+
+    // pages
+    const page = parseInt(req.query.page) || 1;
+
+    // records limit
+    const limit = parseInt(req.query.limit) || 5;
+
+    const skip = (page - 1) * limit;
+
+    // total employees count
+    const totalEmployees = await Employe.countDocuments();
+
+    const employees = await Employe.find(
       {},
       {
         _id: 1,
@@ -37,11 +48,20 @@ export const getAllData = async (req, res) => {
         phone: 1,
         role: 1,
         status: 1,
-      },
-    );
-    // console.log(user)
-    res.status(200).json(user);
+      }
+    )
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json({
+      employees,
+      currentPage: page,
+      totalPages: Math.ceil(totalEmployees / limit),
+      totalEmployees,
+    });
+
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "server error" });
   }
 };
