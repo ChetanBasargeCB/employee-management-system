@@ -24,9 +24,9 @@ export const addEmployees = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
 export const getAllData = async (req, res) => {
   try {
-
     // pages
     const page = parseInt(req.query.page) || 1;
 
@@ -35,11 +35,16 @@ export const getAllData = async (req, res) => {
 
     const skip = (page - 1) * limit;
 
+    // send by search
+    const search = req.query.search || " ";
+
+    const filter = search ? { name: { $regex: search, $options: "i" } } : {};
+
     // total employees count
-    const totalEmployees = await Employe.countDocuments();
+    const totalEmployees = await Employe.countDocuments(filter);
 
     const employees = await Employe.find(
-      {},
+      filter,
       {
         _id: 1,
         name: 1,
@@ -48,7 +53,7 @@ export const getAllData = async (req, res) => {
         phone: 1,
         role: 1,
         status: 1,
-      }
+      },
     )
       .skip(skip)
       .limit(limit);
@@ -59,7 +64,6 @@ export const getAllData = async (req, res) => {
       totalPages: Math.ceil(totalEmployees / limit),
       totalEmployees,
     });
-
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "server error" });

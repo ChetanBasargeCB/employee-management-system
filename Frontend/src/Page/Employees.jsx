@@ -14,14 +14,29 @@ export default function Employees() {
 
   // pagination logic
 
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  // search by name logic
+
+  const [search,setSearch] =useState()
+  const [debouncedSearch,setDebouncedSearch] =useState()
+
+  useEffect(()=>{
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search)
+    }, 500);
+
+    return ()=>clearTimeout(timer);
+  },[search])
+
+
 
   // fetching data
   const handleGetdata = async () => {
     try {
       const resp = await fetch(
-        `http://localhost:3000/employes/all?page=${page}&limit=5`,
+        `http://localhost:3000/employes/all?page=${page}&limit=5&search=${debouncedSearch}`,
         {
           method: "GET",
           credentials: "include",
@@ -79,7 +94,8 @@ export default function Employees() {
 
   useEffect(() => {
     handleGetdata();
-  }, [page]);
+  }, [page,debouncedSearch]);
+
 
   return (
     <div className="p-4 md:ml-80 md:mr-10 font-sans text-slate-700">
@@ -95,6 +111,8 @@ export default function Employees() {
           <input
             type="text"
             placeholder="Search employees by name..."
+            value={search}
+            onChange={(e)=>{setSearch(e.target.value),setPage(1)}}
             className="border border-gray-300 rounded-md px-4 py-2 w-full md:w-80 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <Link
