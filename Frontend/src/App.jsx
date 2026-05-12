@@ -8,6 +8,7 @@ import Profile from "./Page/Profile"
 import AddEmployees from "./Page/AddEmployees"
 import Employees from "./Page/Employees"
 import Departments from "./Page/Deparments"
+import EmployeeDetails from "./Page/EmployeeDetails"
 
 
 
@@ -31,6 +32,10 @@ function App() {
   {
     path:"/add/:id",
     element:<AddEmployees/>
+  },
+  {
+    path:"/employee_detail/:id",
+    element:<EmployeeDetails/>
   },
   {
     path:"/employees",
