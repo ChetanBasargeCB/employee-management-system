@@ -1,5 +1,4 @@
 import Employe from "../Model/EmployeModel.js";
-import bcrypt from "bcrypt";
 
 export const addEmployees = async (req, res) => {
   const { name, email, phone, department, role, status } = req.body;

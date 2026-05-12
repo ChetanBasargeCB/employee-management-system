@@ -22,7 +22,7 @@ export default function Home() {
           </svg>
         </div>
 
-        <p className="text-xs sm:text-sm  font-semibold uppercase tracking-[0.2em] text-blue-600 mb-3 animate-bounce">
+        <p className="text-xs sm:text-sm  font-semibold uppercase tracking-[0.2em] text-blue-600 mb-3 animate-pulse">
           Tech Mirus IT Solutions
         </p>
 
