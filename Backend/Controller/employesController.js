@@ -36,7 +36,7 @@ export const getAllData = async (req, res) => {
     const skip = (page - 1) * limit;
 
     // send by search
-    const search = req.query.search || " ";
+    const search = req.query.search || "";
 
     const filter = search ? { name: { $regex: search, $options: "i" } } : {};
 

@@ -19,8 +19,8 @@ export default function Employees() {
 
   // search by name logic
 
-  const [search,setSearch] =useState()
-  const [debouncedSearch,setDebouncedSearch] =useState()
+  const [search,setSearch] =useState("")
+  const [debouncedSearch,setDebouncedSearch] =useState("")
 
   useEffect(()=>{
     const timer = setTimeout(() => {
